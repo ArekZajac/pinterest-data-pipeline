@@ -1,0 +1,7 @@
+*/__pycache__
+__pycache__/*
+.vscode/*
+.DS_Store
+.env
+ec2.sh
+*.pem
