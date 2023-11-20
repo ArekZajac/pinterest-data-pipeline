@@ -5,3 +5,4 @@ __pycache__/*
 .env
 ec2.sh
 *.pem
+user_posting_emulation.py
