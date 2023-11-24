@@ -10,7 +10,7 @@ Further processing and analytical operations will be conducted in Databricks, ut
 
 In addition to batch processing, the system is designed to accommodate stream processing with AWS Kinesis, allowing for real-time data analytics and immediate insight generation. This dual capability ensures that our system is versatile and capable of providing timely analysis, which is critical for data-driven decision-making.
 
-### Usage
+### Dependencies
 
 ### Project Structure
 
