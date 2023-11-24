@@ -10,21 +10,22 @@ Further processing and analytical operations will be conducted in Databricks, ut
 
 In addition to batch processing, the system is designed to accommodate stream processing with AWS Kinesis, allowing for real-time data analytics and immediate insight generation. This dual capability ensures that our system is versatile and capable of providing timely analysis, which is critical for data-driven decision-making.
 
+### Usage
+
 ### Project Structure
 
 <pre>
-<b style='color:blue;' >pinterest-data-pipeline/</b>
-├─ <b style='color:green;' >data_emulation.py</b>
-│  A python script that indefinately feeds the API gateway with data.
-├─ <b style='color:green;' >databricks_notebook.ipynb</b>
-│  An export of the Databricks workbook used for this project.
-├─ <b style='color:magenta;' >arch.png</b>
-│  A visual representation of the project's high-level architecture.
-├─ <b style='color:green;' >README.md</b>
-├─ <b style='color:green;' >LICENSE</b>
+<b>pinterest-data-pipeline/</b>
+├─ <b>data_emulation.py</b>
+│  <i>A python script that indefinitely feeds the API gateway with data.</i>
+├─ <b>databricks_notebook.ipynb</b>
+│  <i>An export of the Databricks workbook used for this project.</i>
+├─ <b>arch.png</b>
+│  <i>A visual representation of the project's high-level architecture.</i>
+├─ <b>README.md</b>
+└─ <b>LICENSE</b>
 </pre>
 
----
 
 ### High-Level Architecture
 
@@ -33,8 +34,8 @@ In addition to batch processing, the system is designed to accommodate stream pr
 </div>
 
 - **RDS** - Used to provide the data emulation script with dummy data.
-- **Data Emulation** - A python script that indefinately feeds the API gateway with data.
-- **API Gateway** - Provides an API to transfer batch data into MSK and stream data into Kinesis DS.
+- **Data Emulation** - A python script that indefinitely feeds the API gateway with data.
+- **API Gateway** - Provides an API for transfering batch data into MSK and stream data into Kinesis DS.
 - **Kinesis Data Stream**
 - **Kafka**
 - **MSK Connect**
@@ -43,7 +44,7 @@ In addition to batch processing, the system is designed to accommodate stream pr
 - **MWAA**
 - **Databricks**
 - **Spark** - Used to clean and analyse data within Databricks.
-
+- **Databricks Cluster** - Provides computation for the Databricks environment.
 ---
 
 ### Tests
