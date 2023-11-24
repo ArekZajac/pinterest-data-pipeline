@@ -64,7 +64,6 @@ def to_msk(pin_result, geo_result, user_result):
                 }
             ]
         }, default=json_serializer)
-        print(payload)
         headers = {'Content-Type': 'application/vnd.kafka.json.v2+json'}
         response = requests.post(f"{api_url}/topics/{topic}", data=payload, headers=headers)
         return response
