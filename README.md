@@ -13,20 +13,20 @@ In addition to batch processing, the system is designed to accommodate stream pr
 ### Project Structure
 
 <pre>
-<b>pinterest-data-pipeline/</b>
-├─ <b>data_emulation.py</b>
+<b style='color:blue;' >pinterest-data-pipeline/</b>
+├─ <b style='color:green;' >data_emulation.py</b>
 │  A python script that indefinately feeds the API gateway with data.
-├─ <b>databricks_notebook.ipynb</b>
+├─ <b style='color:green;' >databricks_notebook.ipynb</b>
 │  An export of the Databricks workbook used for this project.
-├─ <b>arch.png</b>
+├─ <b style='color:magenta;' >arch.png</b>
 │  A visual representation of the project's high-level architecture.
-├─ <b>README.md</b>
-├─ <b>LICENSE</b>
+├─ <b style='color:green;' >README.md</b>
+├─ <b style='color:green;' >LICENSE</b>
 </pre>
 
 ---
 
-### Cloud Architecture
+### High-Level Architecture
 
 <div align="center">
   <img src="arch.png" width="1000"/>
@@ -34,7 +34,7 @@ In addition to batch processing, the system is designed to accommodate stream pr
 
 - **RDS** - Used to provide the data emulation script with dummy data.
 - **Data Emulation** - A python script that indefinately feeds the API gateway with data.
-- **API Gateway**
+- **API Gateway** - Provides an API to transfer batch data into MSK and stream data into Kinesis DS.
 - **Kinesis Data Stream**
 - **Kafka**
 - **MSK Connect**
