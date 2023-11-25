@@ -52,9 +52,9 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 - **Kafka**
 - **MSK Connect**
 - **MSK**
-- **S3**
-- **MWAA**
-- **Databricks**
+- **S3** - Stores Kafka topic data, and DAG files for MWAA.
+- **MWAA** - Schedules Airflow workflows for the Databricks environment.
+- **Databricks** - Provides a platform for processing and transforming data.
 - **Spark** - Used to clean and analyse data within Databricks.
 - **Databricks Cluster** - Provides computation for the Databricks environment.
 ---
