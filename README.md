@@ -12,6 +12,14 @@ In addition to batch processing, the system is designed to accommodate stream pr
 
 ### Dependencies
 
+In order to install all dependencies, run `pip install -r requirements.txt` in the project directory. This will install the following packages:
+
+- Dotenv
+- Requests
+- SQLAlchemy
+
+*Note: A populated .env file is required for this project to function.*
+
 ### Project Structure
 
 <pre>
@@ -20,8 +28,12 @@ In addition to batch processing, the system is designed to accommodate stream pr
 │  <i>A python script that indefinitely feeds the API gateway with data.</i>
 ├─ <b>databricks_notebook.ipynb</b>
 │  <i>An export of the Databricks workbook used for this project.</i>
+├─ <b>0ea903d23769_dag.py</b>
+│  <i>The DAG file uploaded to Airflow to run the Databricks notebook.</i>
 ├─ <b>arch.png</b>
 │  <i>A visual representation of the project's high-level architecture.</i>
+├─ <b>.env.template</b>
+│  <i>Template for required .env file.</i>
 ├─ <b>README.md</b>
 └─ <b>LICENSE</b>
 </pre>
