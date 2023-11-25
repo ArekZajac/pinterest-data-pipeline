@@ -24,8 +24,13 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 
 <pre>
 <b>pinterest-data-pipeline/</b>
-├─ <b>data_emulation.py</b>
-│  <i>A python script that indefinitely feeds the API gateway with data.</i>
+├─ <b>data_emulation/</b>
+│  ├─ <b>data_emulation.py</b>
+│  │  <i>Code that indefinitely emulates data using an RDS database.</i>
+│  ├─ <b>batch_ingestion.py</b>
+│  │  <i>Code that ingests emulated data into MSK via the API.</i>
+│  └─ <b>stream_ingestion.py</b>
+│     <i>Code that ingests emulated data into Kinesis via the API.</i>
 ├─ <b>databricks_notebook.ipynb</b>
 │  <i>An export of the Databricks workbook used for this project.</i>
 ├─ <b>0ea903d23769_dag.py</b>
