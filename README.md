@@ -31,8 +31,13 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 │  │  <i>Code that ingests emulated data into MSK via the API.</i>
 │  └─ <b>stream_ingestion.py</b>
 │     <i>Code that ingests emulated data into Kinesis via the API.</i>
-├─ <b>databricks_notebook.ipynb</b>
-│  <i>An export of the Databricks workbook used for this project.</i>
+├─ <b>databricks/</b>
+│  ├─ <b>Process_Batch_Data.ipynb</b>
+│  │  <i>Workbook that ingests and cleans batch data from S3.</i>
+│  ├─ <b>Query_Batch_Data.ipynb</b>
+│  │  <i>Workbook that queries cleaned batch data to test integrity.</i>
+│  ├─ <b>Process_Stream_Data.ipynb</b>
+│  └─ <i>Workbook that ingests and cleans stream data from Kinesis.</i>
 ├─ <b>0ea903d23769_dag.py</b>
 │  <i>The DAG file uploaded to Airflow to run the Databricks notebook.</i>
 ├─ <b>arch.png</b>
@@ -66,7 +71,7 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 
 ### Tests
 
-After importing and cleaning the data on Databricks, shown below are the tests performed to validate the data. These tests can also be viewed in [`databricks_notebook.ipynb`](databricks_notebook.ipynb) - an export from the databricks workspace.
+After importing and cleaning the data on Databricks, shown below are the tests performed to validate the data. These tests can also be viewed in [`Query_Batch_Data.ipynb`](databricks/Query_Batch_Data.ipynb) - an export from the databricks workspace.
 
 #### Find Most Popular Category per Country
 
