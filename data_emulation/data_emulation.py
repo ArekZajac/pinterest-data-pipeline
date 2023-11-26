@@ -7,11 +7,9 @@ from dotenv import load_dotenv
 import requests
 import json
 from datetime import datetime
-import batch_ingestion as batch
-import stream_ingestion as stream
 
 
-class Core:
+class AWSDBConnector:
     def __init__(self):
         load_dotenv()
         self.HOST = os.getenv('RDS_HOST')
@@ -32,35 +30,28 @@ class Core:
             for row in result:
                 return dict(row._mapping)
 
-    def run_emulation_cycle(self, db_connector):
-        sleep(random.randrange(0, 2))
-        random_row = random.randint(0, 11000)
+def run_emulation_clock(db_connector):
+    while True:
         try:
-            data = {
-                "pin": db_connector.query_table('pinterest_data', random_row),
-                "geo": db_connector.query_table('geolocation_data', random_row),
-                "user": db_connector.query_table('user_data', random_row)
-            }
-            return data
-        except Exception as e: print(f"Error occurred: {e}")
+            sleep(random.randrange(0, 2))
+            random_row = random.randint(0, 11000)
 
-    def clock(self, output):
-        while True:
-            data = self.run_emulation_cycle(self)
-            if data is not None:
-                match output:
-                    case "batch":
-                        batch.BatchIngestor.to_msk(data["pin"], data["geo"], data["user"])
-                    case "stream":
-                        stream.StreamIngestor.to_kinesis(data["pin"], data["geo"], data["user"])
-                    case "console":
-                        self.to_console(data["pin"], data["geo"], data["user"])
+            pin_result = db_connector.query_table('pinterest_data', random_row)
+            geo_result = db_connector.query_table('geolocation_data', random_row)
+            user_result = db_connector.query_table('user_data', random_row)
 
-    def to_console(self, pin_result, geo_result, user_result):
-        print(f"PIN:\n{pin_result}\n")
-        print(f"GEO:\n{geo_result}\n")
-        print(f"USER:\n{user_result}\n")
+            # to_console(pin_result, geo_result, user_result)
+            to_msk(pin_result, geo_result, user_result)
+
+        except Exception as e:
+            print(f"Error occurred: {e}")
+
+def to_console(pin_result, geo_result, user_result):
+    print(f"PIN:\n{pin_result}\n")
+    print(f"GEO:\n{geo_result}\n")
+    print(f"USER:\n{user_result}\n")
+    
 
 if __name__ == "__main__":
-    core_instance = Core()
-    core_instance.clock("console")
+    new_connector = AWSDBConnector()
+    run_infinite_post_data_loop(new_connector)
