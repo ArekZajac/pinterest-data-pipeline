@@ -4,11 +4,6 @@ import sqlalchemy
 from sqlalchemy import text
 from time import sleep
 from dotenv import load_dotenv
-import requests
-import json
-from datetime import datetime
-import batch_ingestion as batch
-import stream_ingestion as stream
 
 
 class Core:
@@ -44,23 +39,7 @@ class Core:
             return data
         except Exception as e: print(f"Error occurred: {e}")
 
-    def clock(self, output):
-        while True:
-            data = self.run_emulation_cycle(self)
-            if data is not None:
-                match output:
-                    case "batch":
-                        batch.BatchIngestor.to_msk(data["pin"], data["geo"], data["user"])
-                    case "stream":
-                        stream.StreamIngestor.to_kinesis(data["pin"], data["geo"], data["user"])
-                    case "console":
-                        self.to_console(data["pin"], data["geo"], data["user"])
-
     def to_console(self, pin_result, geo_result, user_result):
         print(f"PIN:\n{pin_result}\n")
         print(f"GEO:\n{geo_result}\n")
         print(f"USER:\n{user_result}\n")
-
-if __name__ == "__main__":
-    core_instance = Core()
-    core_instance.clock("console")

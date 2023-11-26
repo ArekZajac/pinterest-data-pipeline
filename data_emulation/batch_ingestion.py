@@ -1,4 +1,3 @@
-import data_emulation as core
 import os
 from dotenv import load_dotenv
 from datetime import datetime
@@ -37,6 +36,3 @@ class BatchIngestor:
 
         for k, v in responses.items():
             print(f"{k}: {v}\n")
-
-if __name__ == "__main__":
-    core.clock("batch")
