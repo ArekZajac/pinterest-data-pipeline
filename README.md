@@ -56,22 +56,22 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 </div>
 
 - **RDS** - Used to provide the data emulation script with dummy data.
-- **Data Emulation** - A python script that indefinitely feeds the API gateway with data.
+- **Data Emulation** - Python code that indefinitely feeds the API gateway with data.
 - **API Gateway** - Provides an API for transfering batch data into MSK and stream data into Kinesis DS.
-- **Kinesis Data Stream**
-- **Kafka**
-- **MSK Connect**
-- **MSK**
+- **Kinesis Data Stream** - Manages streams of real-time data coming from the API.
+- **Kafka** - Ingests and processes data.
+- **MSK Connect** - Connects MSK with Kafka.
+- **MSK** - Runs applications that use Kafka, on AWS.
 - **S3** - Stores Kafka topic data, and DAG files for MWAA.
 - **MWAA** - Schedules Airflow workflows for the Databricks environment.
-- **Databricks** - Provides a platform for processing and transforming data.
+- **Databricks** - Provides a platform for processing and transforming both the batch and stream data.
 - **Spark** - Used to clean and analyse data within Databricks.
 - **Databricks Cluster** - Provides computation for the Databricks environment.
 ---
 
-### Tests
+### Data Integrity Tests
 
-After importing and cleaning the data on Databricks, shown below are the tests performed to validate the data. These tests can also be viewed in [`Query_Batch_Data.ipynb`](databricks/Query_Batch_Data.ipynb) - an export from the databricks workspace.
+After importing and cleaning the batch data on Databricks, shown below are the tests performed on the data. These tests can also be viewed in [`Query_Batch_Data.ipynb`](databricks/Query_Batch_Data.ipynb) - an export from the databricks workspace.
 
 #### Find Most Popular Category per Country
 
