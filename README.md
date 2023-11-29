@@ -32,7 +32,7 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 
 <details>
 <summary>Response</summary>
-```json
+<pre>
 {
     "StreamDescription": {
         "EncryptionType": string,
@@ -94,7 +94,7 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
         "StreamStatus": string
     }
 }
-```
+</pre>
 </details>
 
 `POST /streams/{steam-name}`
