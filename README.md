@@ -10,7 +10,7 @@ Further processing and analytical operations will be conducted in Databricks, ut
 
 In addition to batch processing, the system is designed to accommodate stream processing with AWS Kinesis, allowing for real-time data analytics and immediate insight generation. This dual capability ensures that our system is versatile and capable of providing timely analysis, which is critical for data-driven decision-making.
 
-### Dependencies
+### Data Emulation Dependencies
 
 In order to install all dependencies, run `pip install -r requirements.txt` in the project directory. This will install the following packages:
 
@@ -19,6 +19,89 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 - SQLAlchemy
 
 *Note: A populated .env file is required for this project to function.*
+
+### API Usage
+
+`GET /streams`
+
+`DELETE /streams/{steam-name}`
+
+#### Get Information of a Stream
+
+`GET /streams/{steam-name}`
+
+<details>
+<summary>Response</summary>
+```json
+{
+    "StreamDescription": {
+        "EncryptionType": string,
+        "EnhancedMonitoring": [
+            {
+                "ShardLevelMetrics": []
+            }
+        ],
+        "HasMoreShards": bool,
+        "RetentionPeriodHours": int,
+        "Shards": [
+            {
+                "HashKeyRange": {
+                    "EndingHashKey": int,
+                    "StartingHashKey": int
+                },
+                "SequenceNumberRange": {
+                    "StartingSequenceNumber": int
+                },
+                "ShardId": string
+            },
+            {
+                "HashKeyRange": {
+                    "EndingHashKey": int,
+                    "StartingHashKey": int
+                },
+                "SequenceNumberRange": {
+                    "StartingSequenceNumber": int
+                },
+                "ShardId": string
+            },
+            {
+                "HashKeyRange": {
+                    "EndingHashKey": int,
+                    "StartingHashKey": int
+                },
+                "SequenceNumberRange": {
+                    "StartingSequenceNumber": int
+                },
+                "ShardId": string
+            },
+            {
+                "HashKeyRange": {
+                    "EndingHashKey": int,
+                    "StartingHashKey": int
+                },
+                "SequenceNumberRange": {
+                    "StartingSequenceNumber": int
+                },
+                "ShardId": string
+            }
+        ],
+        "StreamARN": string,
+        "StreamCreationTimestamp": timestamp,
+        "StreamModeDetails": {
+            "StreamMode": string
+        },
+        "StreamName": string,
+        "StreamStatus": string
+    }
+}
+```
+</details>
+
+`POST /streams/{steam-name}`
+
+`PUT /streams/{steam-name}/record`
+
+`PUT /streams/{steam-name}/records`
 
 ### Project Structure
 
