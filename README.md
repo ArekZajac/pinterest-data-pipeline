@@ -10,79 +10,6 @@ Further processing and analytical operations will be conducted in Databricks, ut
 
 In addition to batch processing, the system is designed to accommodate stream processing with AWS Kinesis, allowing for real-time data analytics and immediate insight generation. This dual capability ensures that our system is versatile and capable of providing timely analysis, which is critical for data-driven decision-making.
 
-### Data Emulation Dependencies
-
-In order to install all dependencies, run `pip install -r requirements.txt` in the project directory. This will install the following packages:
-
-- Dotenv
-- Requests
-- SQLAlchemy
-
-*Note: A populated .env file is required for this project to function.*
-
-### API Usage
-
-#### Get a List of all Streams
-
-`GET /streams`
-
-#### Delete a Stream by Name
-
-`DELETE /streams/{steam-name}`
-
-#### Get Stream Information by Name
-
-`GET /streams/{steam-name}`
-
-<details>
-<summary>Response</summary>
-<pre lang='json'>
-{
-    "StreamDescription": {
-        "EncryptionType": string,
-        "EnhancedMonitoring": [
-            {
-                "ShardLevelMetrics": []
-            }
-        ],
-        "HasMoreShards": bool,
-        "RetentionPeriodHours": int,
-        "Shards": [
-            {
-                "HashKeyRange": {
-                    "EndingHashKey": int,
-                    "StartingHashKey": int
-                },
-                "SequenceNumberRange": {
-                    "StartingSequenceNumber": int
-                },
-                "ShardId": string
-            }
-        ],
-        "StreamARN": string,
-        "StreamCreationTimestamp": timestamp,
-        "StreamModeDetails": {
-            "StreamMode": string
-        },
-        "StreamName": string,
-        "StreamStatus": string
-    }
-}
-</pre>
-</details>
-
-#### Add a New Stream
-
-`POST /streams/{steam-name}`
-
-#### Add a New Record to a Stream
-
-`PUT /streams/{steam-name}/record`
-
-#### Add Multiple New Records to a Stream
-
-`PUT /streams/{steam-name}/records`
-
 ### Project Structure
 
 <pre>
@@ -111,6 +38,110 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 └─ <b>LICENSE</b>
 </pre>
 
+### Data Emulation Dependencies
+
+In order to install all dependencies for the data emulation code, run `pip install -r requirements.txt` in the project directory. This will install the following packages:
+
+- Dotenv
+- Requests
+- SQLAlchemy
+
+*Note: A populated .env file is required for this code to function.*
+
+### API Usage
+
+#### Add Data Into a Topic
+
+`POST /topics/{topic-name}`
+
+<details>
+<summary>200 Response</summary>
+<pre lang='json'>
+{
+  "offsets": [
+    {
+      "partition": int,
+      "offset": int,
+      "error_code": str,
+      "error": str
+    }
+  ],
+  "key_schema_id": int,
+  "value_schema_id": int
+}
+</pre>
+</details>
+
+#### Get a List of all Streams
+
+`GET /streams`
+
+#### Delete a Stream by Name
+
+`DELETE /streams/{steam-name}`
+
+#### Get Stream Information by Name
+
+`GET /streams/{steam-name}`
+
+<details>
+<summary>200 Response</summary>
+<pre lang='json'>
+{
+  "StreamDescription": {
+    "EncryptionType": str,
+    "EnhancedMonitoring": [
+      {
+        "ShardLevelMetrics": []
+      }
+    ],
+    "HasMoreShards": bool,
+    "RetentionPeriodHours": int,
+    "Shards": [
+      {
+        "HashKeyRange": {
+          "EndingHashKey": int,
+          "StartingHashKey": int
+        },
+        "SequenceNumberRange": {
+          "StartingSequenceNumber": int
+        },
+        "ShardId": str
+      }
+    ],
+    "StreamARN": str,
+    "StreamCreationTimestamp": timestamp,
+    "StreamModeDetails": {
+      "StreamMode": str
+    },
+    "StreamName": str,
+    "StreamStatus": str
+  }
+}
+</pre>
+</details>
+
+#### Add a New Stream
+
+`POST /streams/{steam-name}`
+
+#### Add a New Record to a Stream
+
+`PUT /streams/{steam-name}/record`
+
+<details>
+<summary>200 Response</summary>
+<pre lang='json'>
+{
+  "SequenceNumber": int,
+  "ShardId": str
+}
+</pre>
+</details>
+
+#### Add Multiple New Records to a Stream
+
+`PUT /streams/{steam-name}/records`
 
 ### High-Level Architecture
 
@@ -130,7 +161,6 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 - **Databricks** - Provides a platform for processing and transforming both the batch and stream data.
 - **Spark** - Used to clean and analyse data within Databricks.
 - **Databricks Cluster** - Provides computation for the Databricks environment.
----
 
 ### Data Integrity Tests
 
@@ -138,107 +168,107 @@ After importing and cleaning the batch data on Databricks, shown below are the t
 
 #### Find Most Popular Category per Country
 
-|country                                            |category      |category_count|
-|---------------------------------------------------|--------------|--------------|
-|Afghanistan                                        |education     |35            |
-|Albania                                            |art           |30            |
-|Algeria                                            |quotes        |43            |
-|American Samoa                                     |tattoos       |20            |
-|Andorra                                            |tattoos       |15            |
-|Angola                                             |education     |5             |
-|Anguilla                                           |tattoos       |10            |
-|Antarctica (the territory South of 60 deg S)       |christmas     |15            |
-|Antigua and Barbuda                                |travel        |7             |
-|Argentina                                          |tattoos       |15            |
+| country                                      | category  | category_count |
+| -------------------------------------------- | --------- | -------------- |
+| Afghanistan                                  | education | 35             |
+| Albania                                      | art       | 30             |
+| Algeria                                      | quotes    | 43             |
+| American Samoa                               | tattoos   | 20             |
+| Andorra                                      | tattoos   | 15             |
+| Angola                                       | education | 5              |
+| Anguilla                                     | tattoos   | 10             |
+| Antarctica (the territory South of 60 deg S) | christmas | 15             |
+| Antigua and Barbuda                          | travel    | 7              |
+| Argentina                                    | tattoos   | 15             |
 ...
 
 #### Find Post Count per Category Between 2018 & 2022
 
-|post_year                                          |category      |category_count|
-|---------------------------------------------------|--------------|--------------|
-|2018                                               |art           |32            |
-|2018                                               |beauty        |23            |
-|2018                                               |christmas     |44            |
-|2018                                               |diy-and-crafts|37            |
-|2018                                               |education     |28            |
-|2018                                               |event-planning|25            |
-|2018                                               |finance       |39            |
-|2018                                               |home-decor    |46            |
-|2018                                               |mens-fashion  |20            |
-|2018                                               |quotes        |36            |
+| post_year | category       | category_count |
+| --------- | -------------- | -------------- |
+| 2018      | art            | 32             |
+| 2018      | beauty         | 23             |
+| 2018      | christmas      | 44             |
+| 2018      | diy-and-crafts | 37             |
+| 2018      | education      | 28             |
+| 2018      | event-planning | 25             |
+| 2018      | finance        | 39             |
+| 2018      | home-decor     | 46             |
+| 2018      | mens-fashion   | 20             |
+| 2018      | quotes         | 36             |
 ...
 
 #### Find Most Followed User per Country
 
-|country                                            |poster_name   |follower_count|
-|---------------------------------------------------|--------------|--------------|
-|Afghanistan                                        |DIY Joy - Crafts, Home Improvement, Decor & Recipes|985           |
-|Albania                                            |WeAreTeachers |500           |
-|Algeria                                            |YourTango     |942           |
-|American Samoa                                     |Byrdie        |538           |
-|Andorra                                            |The Best Ideas for Kids|903           |
-|Angola                                             |CraftGossip.com|502           |
-|Anguilla                                           |dresslily     |760           |
-|Antarctica (the territory South of 60 deg S)       |StayGlam      |829           |
-|Antigua and Barbuda                                |A Cultivated Nest|578           |
-|Argentina                                          |Next Luxury   |800           |
+| country                                      | poster_name                                         | follower_count |
+| -------------------------------------------- | --------------------------------------------------- | -------------- |
+| Afghanistan                                  | DIY Joy - Crafts, Home Improvement, Decor & Recipes | 985            |
+| Albania                                      | WeAreTeachers                                       | 500            |
+| Algeria                                      | YourTango                                           | 942            |
+| American Samoa                               | Byrdie                                              | 538            |
+| Andorra                                      | The Best Ideas for Kids                             | 903            |
+| Angola                                       | CraftGossip.com                                     | 502            |
+| Anguilla                                     | dresslily                                           | 760            |
+| Antarctica (the territory South of 60 deg S) | StayGlam                                            | 829            |
+| Antigua and Barbuda                          | A Cultivated Nest                                   | 578            |
+| Argentina                                    | Next Luxury                                         | 800            |
 ...
 
 #### Find The Country With Most Followed User
 
-|country                                            |follower_count|
-|---------------------------------------------------|--------------|
-|Palestinian Territory                              |997           |
-|Western Sahara                                     |997           |
+| country               | follower_count |
+| --------------------- | -------------- |
+| Palestinian Territory | 997            |
+| Western Sahara        | 997            |
 
 #### Find Most Popular Category per Age Group
 
-|age_group                                          |category      |category_count|
-|---------------------------------------------------|--------------|--------------|
-|18-24                                              |tattoos       |133           |
-|25-35                                              |christmas     |76            |
-|36-50                                              |christmas     |52            |
-|50+                                                |christmas     |30            |
-|50+                                                |travel        |30            |
+| age_group | category  | category_count |
+| --------- | --------- | -------------- |
+| 18-24     | tattoos   | 133            |
+| 25-35     | christmas | 76             |
+| 36-50     | christmas | 52             |
+| 50+       | christmas | 30             |
+| 50+       | travel    | 30             |
 
 #### Find Median Follower Count per Age Group
 
-|age_group                                          |median_follower_count|
-|---------------------------------------------------|---------------------|
-|18-24                                              |55                   |
-|25-35                                              |30                   |
-|36-50                                              |28                   |
-|50+                                                |24                   |
+| age_group | median_follower_count |
+| --------- | --------------------- |
+| 18-24     | 55                    |
+| 25-35     | 30                    |
+| 36-50     | 28                    |
+| 50+       | 24                    |
 
 #### Find New User Count Between 2015 & 2020
 
-|post_year                                          |number_users_joined|
-|---------------------------------------------------|-------------------|
-|2015                                               |825                |
-|2016                                               |791                |
-|2017                                               |340                |
+| post_year | number_users_joined |
+| --------- | ------------------- |
+| 2015      | 825                 |
+| 2016      | 791                 |
+| 2017      | 340                 |
 
 #### Find Median Follower Count of Users Joined Between 2015 & 2020
 
-|post_year                                          |median_follower_count|
-|---------------------------------------------------|---------------------|
-|2015                                               |60                   |
-|2016                                               |32                   |
-|2017                                               |24                   |
+| post_year | median_follower_count |
+| --------- | --------------------- |
+| 2015      | 60                    |
+| 2016      | 32                    |
+| 2017      | 24                    |
 
 #### Find Median Follower Count per Joining Year & Age Group
 
-|age_group                                          |post_year     |median_follower_count|
-|---------------------------------------------------|--------------|---------------------|
-|18-24                                              |2015          |79                   |
-|18-24                                              |2016          |42                   |
-|18-24                                              |2017          |21                   |
-|25-35                                              |2015          |40                   |
-|25-35                                              |2016          |26                   |
-|25-35                                              |2017          |25                   |
-|36-50                                              |2015          |45                   |
-|36-50                                              |2016          |27                   |
-|36-50                                              |2017          |24                   |
-|50+                                                |2015          |45                   |
-|50+                                                |2016          |23                   |
-|50+                                                |2017          |28                   |
+| age_group | post_year | median_follower_count |
+| --------- | --------- | --------------------- |
+| 18-24     | 2015      | 79                    |
+| 18-24     | 2016      | 42                    |
+| 18-24     | 2017      | 21                    |
+| 25-35     | 2015      | 40                    |
+| 25-35     | 2016      | 26                    |
+| 25-35     | 2017      | 25                    |
+| 36-50     | 2015      | 45                    |
+| 36-50     | 2016      | 27                    |
+| 36-50     | 2017      | 24                    |
+| 50+       | 2015      | 45                    |
+| 50+       | 2016      | 23                    |
+| 50+       | 2017      | 28                    |
