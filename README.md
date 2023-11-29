@@ -22,17 +22,21 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 
 ### API Usage
 
+#### Get a List of all Streams
+
 `GET /streams`
+
+#### Delete a Stream by Name
 
 `DELETE /streams/{steam-name}`
 
-#### Get Information of a Stream
+#### Get Stream Information by Name
 
 `GET /streams/{steam-name}`
 
 <details>
 <summary>Response</summary>
-<pre>
+<pre lang='json'>
 {
     "StreamDescription": {
         "EncryptionType": string,
@@ -44,36 +48,6 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
         "HasMoreShards": bool,
         "RetentionPeriodHours": int,
         "Shards": [
-            {
-                "HashKeyRange": {
-                    "EndingHashKey": int,
-                    "StartingHashKey": int
-                },
-                "SequenceNumberRange": {
-                    "StartingSequenceNumber": int
-                },
-                "ShardId": string
-            },
-            {
-                "HashKeyRange": {
-                    "EndingHashKey": int,
-                    "StartingHashKey": int
-                },
-                "SequenceNumberRange": {
-                    "StartingSequenceNumber": int
-                },
-                "ShardId": string
-            },
-            {
-                "HashKeyRange": {
-                    "EndingHashKey": int,
-                    "StartingHashKey": int
-                },
-                "SequenceNumberRange": {
-                    "StartingSequenceNumber": int
-                },
-                "ShardId": string
-            },
             {
                 "HashKeyRange": {
                     "EndingHashKey": int,
@@ -97,9 +71,15 @@ In order to install all dependencies, run `pip install -r requirements.txt` in t
 </pre>
 </details>
 
+#### Add a New Stream
+
 `POST /streams/{steam-name}`
 
+#### Add a New Record to a Stream
+
 `PUT /streams/{steam-name}/record`
+
+#### Add Multiple New Records to a Stream
 
 `PUT /streams/{steam-name}/records`
 
