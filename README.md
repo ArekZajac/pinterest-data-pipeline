@@ -60,9 +60,9 @@ In order to install all dependencies for the data emulation code, run `pip insta
 {
   "offsets": [
     {
-      "partition": integer,
+      "partition": int,
       "offset": int,
-      "error_code": string,
+      "error_code": str,
       "error": str
     }
   ],
